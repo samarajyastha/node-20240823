@@ -1,9 +1,14 @@
-import express from "express";
+import bodyParser from "body-parser";
 import dotenv from "dotenv";
+import express from "express";
+import products from "./routes/products.js";
 
 const app = express();
 
 dotenv.config();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const PORT = process.env.PORT;
 
@@ -16,13 +21,7 @@ app.get("/", (req, res) => {
   });
 });
 
-// app.get("/about", (req, res) => {
-//   res.send("about page");
-// });
-
-// app.get("/products", (req, res) => {
-//   res.send("hello");
-// });
+app.use("/api/products", products);
 
 app.listen(PORT, () => {
   console.log(`Server running at port ${PORT}...`);
