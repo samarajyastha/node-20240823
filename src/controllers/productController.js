@@ -1,42 +1,31 @@
-import fs from "fs";
-import path from "path";
-import url from "url";
+import productService from "../services/productService.js";
 
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const getAllProducts = async (req, res) => {
+  const products = await productService.getAllProducts();
 
-const rawData = fs.readFileSync(
-  `${__dirname}/../../data/products.json`,
-  "utf8"
-);
-
-const products = JSON.parse(rawData);
-
-const getAllProducts = (req, res) => {
   res.json(products);
 };
 
-const getProductById = (req, res) => {
+const getProductById = async (req, res) => {
   const id = req.params.id;
 
-  const product = products.find((item) => item.id == id);
+  const product = await productService.getProductById(id);
 
   if (!product) res.status(404).send("Product not found!");
 
   res.json(product);
 };
 
-const addProduct = (req, res) => {
-  const newProduct = req.body;
+const addProduct = async (req, res) => {
+  const data = req.body;
 
-  products.push(newProduct);
+  try {
+    const createdProduct = await productService.createProduct(data);
 
-  fs.writeFileSync(
-    `${__dirname}/../../data/products.json`,
-    JSON.stringify(products)
-  );
-
-  res.status(201).json(newProduct);
+    res.status(201).json(createdProduct);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 };
 
 export { getAllProducts, getProductById, addProduct };

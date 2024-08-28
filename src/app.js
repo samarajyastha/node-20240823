@@ -2,10 +2,13 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import express from "express";
 import products from "./routes/products.js";
+import connectDB from "./database.js";
 
 const app = express();
 
 dotenv.config();
+
+connectDB();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
