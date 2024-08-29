@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import products from "./routes/products.js";
 import connectDB from "./database.js";
+import logger from "./middlewares/logger.js";
 
 const app = express();
 
@@ -12,6 +13,8 @@ connectDB();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(logger);
 
 const PORT = process.env.PORT;
 
