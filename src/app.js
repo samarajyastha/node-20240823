@@ -2,6 +2,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import express from "express";
 import products from "./routes/products.js";
+import auth from "./routes/auth.js";
 import connectDB from "./database.js";
 import logger from "./middlewares/logger.js";
 
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/products", products);
+app.use("/api/auth", auth);
 
 app.listen(PORT, () => {
   console.log(`Server running at port ${PORT}...`);
