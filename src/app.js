@@ -5,6 +5,7 @@ import products from "./routes/products.js";
 import auth from "./routes/auth.js";
 import connectDB from "./database.js";
 import logger from "./middlewares/logger.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(logger);
+app.use(cookieParser());
 
 const PORT = process.env.PORT;
 
