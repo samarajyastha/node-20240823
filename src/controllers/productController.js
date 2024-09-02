@@ -26,12 +26,13 @@ const getProductById = async (req, res) => {
 
 const addProduct = async (req, res) => {
   const data = req.body;
+  const userId = req.user.id;
 
   if (!data.name) return res.status(422).send("Product name is required.");
   if (!data.price) return res.status(422).send("Product price is required.");
 
   try {
-    const createdProduct = await productService.createProduct(data);
+    const createdProduct = await productService.createProduct(data, userId);
 
     res.status(201).json(createdProduct);
   } catch (error) {
@@ -42,11 +43,16 @@ const addProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   const id = req.params.id;
   const data = req.body;
+  const user = req.user;
 
   try {
     const product = await productService.getProductById(id);
 
     if (!product) return res.status(404).send("Product not found!");
+
+    if (product.createdBy != user.id && !user.roles.includes("ADMIN")) {
+      return res.status(403).send("Access Denied.");
+    }
 
     const updatedProduct = await productService.updateProduct(id, data);
 

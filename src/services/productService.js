@@ -12,8 +12,8 @@ const getProductById = async (id) => {
   return await Product.findById(id);
 };
 
-const createProduct = async (data) => {
-  return await Product.create(data);
+const createProduct = async (data, userId) => {
+  return await Product.create({ ...data, createdBy: userId });
 };
 
 const updateProduct = async (id, data) => {
@@ -31,3 +31,6 @@ export default {
   updateProduct,
   deleteProduct,
 };
+
+//66d1e49921d84a9d931f1015
+//66d1e49921d84a9d931f1015

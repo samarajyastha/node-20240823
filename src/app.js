@@ -6,6 +6,7 @@ import auth from "./routes/auth.js";
 import connectDB from "./database.js";
 import logger from "./middlewares/logger.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const app = express();
 
@@ -18,6 +19,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(logger);
 app.use(cookieParser());
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 
 const PORT = process.env.PORT;
 
