@@ -3,13 +3,25 @@ import {
   addProduct,
   deleteProduct,
   getAllProducts,
+  getCategories,
   getProductById,
+  getTotalProducts,
   updateProduct,
 } from "../controllers/productController.js";
 import auth from "../middlewares/auth.js";
 import roleBasedAuth from "../middlewares/roleBasedAuth.js";
 
 const router = express.Router();
+
+/**
+ * GET
+ * /api/products/categories
+ * Get all product categories
+ * No authentication or authorization required
+ */
+router.get("/categories", getCategories);
+
+router.get("/total", getTotalProducts);
 
 /**
  * GET

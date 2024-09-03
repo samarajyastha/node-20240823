@@ -78,10 +78,32 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+const getCategories = async (req, res) => {
+  try {
+    const categories = await productService.getCategories();
+
+    res.json(categories);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+const getTotalProducts = async (req, res) => {
+  try {
+    const total = await productService.getTotalProducts();
+
+    res.json(total);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
 export {
   getAllProducts,
   getProductById,
   addProduct,
   updateProduct,
   deleteProduct,
+  getCategories,
+  getTotalProducts,
 };

@@ -21,6 +21,7 @@ const productSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  url: String,
 });
 
 export default mongoose.model("Product", productSchema);

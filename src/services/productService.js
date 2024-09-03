@@ -4,8 +4,10 @@ const getAllProducts = async (query) => {
   const limit = query.limit;
   const sort = query?.sort ? JSON.parse(query.sort) : {};
   const filters = query?.filters ? JSON.parse(query.filters) : {};
+  const page = query.page || 1;
+  const offset = (page - 1) * limit;
 
-  return await Product.find(filters).limit(limit).sort(sort);
+  return await Product.find(filters).limit(limit).sort(sort).skip(offset);
 };
 
 const getProductById = async (id) => {
@@ -24,13 +26,20 @@ const deleteProduct = async (id) => {
   return await Product.findByIdAndDelete(id);
 };
 
+const getCategories = async () => {
+  return await Product.distinct("category");
+};
+
+const getTotalProducts = async () => {
+  return await Product.countDocuments();
+};
+
 export default {
   createProduct,
   getAllProducts,
   getProductById,
   updateProduct,
   deleteProduct,
+  getCategories,
+  getTotalProducts,
 };
-
-//66d1e49921d84a9d931f1015
-//66d1e49921d84a9d931f1015

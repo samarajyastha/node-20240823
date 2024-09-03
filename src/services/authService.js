@@ -19,6 +19,7 @@ const register = async (data) => {
   return {
     id: createdUser._id,
     name: createdUser.name,
+    address: createdUser.address,
     email: createdUser.email,
     roles: createdUser.roles,
   };
