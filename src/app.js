@@ -27,7 +27,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.APP_URL,
   })
 );
 
@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
   // JSON => JavaScript Object Notation
   res.json({
     appName: "nodejs-20240823",
-    version: "1.0.0",
+    version: process.env.VERSION,
     port: PORT,
   });
 });
